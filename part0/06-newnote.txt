@@ -1,0 +1,13 @@
+title 06-newnote
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: 201 response
+
+
+note over browser:
+The JS code fetched from the server 
+in the first HTTP GET renders the new notes
+with a event handler function, which also
+sends the new note to the server
+along with the HTTP POST request.
+end note
