@@ -1,0 +1,17 @@
+title 04newnote
+ 
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note right of server: Server pushes form content to an array, \nwhich will be stringified to be sent back to the browser (as JSON)
+server-->browser: 302 response (URL redirection)
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+note left of browser: browser starts executing js-code that requests \nJSON data from server
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: data.json
+note left of browser: browser executes the event handler that renders \nnotes (including the new one) to display
+
+link to the diagram: https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgMDRuZXdub3RlCiAKYnJvd3Nlci0-c2VydmVyOiBIVFRQIFBPU1QgaHR0cHM6Ly9zdHVkaWVzLmNzLmhlbHNpbmtpLmZpL2V4YW1wbGVhcHAvbmV3XwBLBW5vdGUgcmlnaHQgb2YgAEsIUwBWBSBwdXNoZXMgZm9ybSBjb250ZW50IHRvIGFuIGFycmF5LCBcbndoaWNoIHdpbGwgYmUgc3RyaW5naWZpZWQgdG8ADQVlbnQgYmFjayB0byB0aGUgAIE4ByAoYXMgSlNPTikKAIFCBi0tPgCBUwc6IDMwMiByZXNwb25zZSAoVVJMIHJlZGlyZWN0aW9uKQCBaxdHRQCBVC1vdGVzAGgTSFRNTC1jb2RlACFFbWFpbi5jcwBVFAASCQAfSWoAThlqcwCDYgZsZWYAg2IFAIJgCQCDBQhzdGFydHMgZXhlY3V0aW5nIGpzAIIABSB0aGF0IHJlcXVlc3RzIFxuSlNPTiBkYXRhIGZyb20AhCkHAIJMRWRhdGEuanNvbgCDfRMAEgoAgSkeAIE6BmVzAIRkBWV2ZW50IGhhbmRsZXIAgUEIbmRlcnMgXG4Ag3oFIChpbmNsdWRpbmcAhRYFbmV3IG9uZSkgdG8gZGlzcGxheQoK&s=default
