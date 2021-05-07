@@ -33,20 +33,12 @@ const Header = (props) => {
 };
 
 const Content = (props) => {
+    const [first, second, third] = props.parts;
     return (
         <div>
-            <Part
-                part={props.parts[0].name}
-                exercise={props.parts[0].exercises}
-            />
-            <Part
-                part={props.parts[1].name}
-                exercise={props.parts[1].exercises}
-            />
-            <Part
-                part={props.parts[2].name}
-                exercise={props.parts[2].exercises}
-            />
+            <Part part={first.name} exercise={first.exercises} />
+            <Part part={second.name} exercise={second.exercises} />
+            <Part part={third.name} exercise={third.exercises} />
         </div>
     );
 };
@@ -60,10 +52,8 @@ const Part = (props) => {
 };
 
 const Total = (props) => {
-    const total =
-        props.parts[0].exercises +
-        props.parts[1].exercises +
-        props.parts[2].exercises;
+    const [first, second, third] = props.parts;
+    const total = first.exercises + second.exercises + third.exercises;
     return <p>Number of exercises {total}</p>;
 };
 
