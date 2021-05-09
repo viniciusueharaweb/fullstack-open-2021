@@ -39,6 +39,9 @@ const Statistics = ({ goodVotes, neutralVotes, badVotes }) => {
     const positive = (good, total) => {
         return (good * 100) / total;
     };
+    if (allVotes === 0) {
+        return <p>No feedback given</p>;
+    }
     return (
         <div>
             <p>good {goodVotes}</p>
@@ -52,5 +55,3 @@ const Statistics = ({ goodVotes, neutralVotes, badVotes }) => {
 };
 
 export default App;
-
-// ja sei, so vai ficar no App component good neutral e bad, o resto vai pro componente Statistics pra fazer as contas la dentro
