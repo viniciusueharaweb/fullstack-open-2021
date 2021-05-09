@@ -44,13 +44,24 @@ const Statistics = ({ goodVotes, neutralVotes, badVotes }) => {
     }
     return (
         <div>
-            <p>good {goodVotes}</p>
-            <p>neutral {neutralVotes}</p>
-            <p>bad {badVotes}</p>
-            <p>all {allVotes}</p>
-            <p>average {average(goodVotes, neutralVotes, badVotes)}</p>
-            <p>positive {positive(goodVotes, allVotes)}</p>
+            <Statistic text="good" value={goodVotes} />
+            <Statistic text="neutral" value={neutralVotes} />
+            <Statistic text="bad" value={badVotes} />
+            <Statistic text="all" value={allVotes} />
+            <Statistic
+                text="average"
+                value={average(goodVotes, neutralVotes, badVotes)}
+            />
+            <Statistic text="positive" value={positive(goodVotes, allVotes)} />
         </div>
+    );
+};
+
+const Statistic = (props) => {
+    return (
+        <p>
+            {props.text} {props.value}
+        </p>
     );
 };
 
