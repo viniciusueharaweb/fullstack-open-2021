@@ -31,13 +31,26 @@ const Button = ({ handleClick, text }) => {
 };
 
 const Statistics = ({ goodVotes, neutralVotes, badVotes }) => {
+    const allVotes = goodVotes + neutralVotes + badVotes;
+    const average = (good, neutral, bad) => {
+        return (good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad);
+    };
+
+    const positive = (good, total) => {
+        return (good * 100) / total;
+    };
     return (
         <div>
             <p>good {goodVotes}</p>
             <p>neutral {neutralVotes}</p>
             <p>bad {badVotes}</p>
+            <p>all {allVotes}</p>
+            <p>average {average(goodVotes, neutralVotes, badVotes)}</p>
+            <p>positive {positive(goodVotes, allVotes)}</p>
         </div>
     );
 };
 
 export default App;
+
+// ja sei, so vai ficar no App component good neutral e bad, o resto vai pro componente Statistics pra fazer as contas la dentro
