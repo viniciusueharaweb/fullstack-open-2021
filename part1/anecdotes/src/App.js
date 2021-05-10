@@ -53,7 +53,6 @@ const Button = ({ text, handleClick }) => {
 
 const MostVotedAnecdote = ({ mostVoted, voteArray, mostVotedIndex }) => {
     if (voteArray[mostVotedIndex] === 0) {
-        console.log("oi");
         return <></>;
     }
     return (
