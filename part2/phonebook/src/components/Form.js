@@ -8,8 +8,9 @@ const Forms = ({
     return (
         <form>
             <div>
+                <h2>add a new</h2>
                 <p>
-                    name: <input onChange={nameInputController} required />
+                    name: <input onChange={nameInputController} />
                 </p>
                 <p>
                     number: <input onChange={numberInputController} />

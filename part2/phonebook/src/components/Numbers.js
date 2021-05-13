@@ -1,6 +1,16 @@
 import React from "react";
 
-const Numbers = ({ persons }) => {
+const Numbers = ({ persons, filtered, filteredInput }) => {
+    if (filteredInput) {
+        return (
+            <div>
+                <h2>Numbers</h2>
+                {filtered.map((eachPerson) => (
+                    <Person key={eachPerson.name} persons={eachPerson} />
+                ))}
+            </div>
+        );
+    }
     return (
         <div>
             <h2>Numbers</h2>
