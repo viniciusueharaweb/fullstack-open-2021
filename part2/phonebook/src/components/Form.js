@@ -1,10 +1,19 @@
 import React from "react";
 
-const Forms = ({ handleNameSubmit, inputController }) => {
+const Forms = ({
+    handleNameSubmit,
+    nameInputController,
+    numberInputController,
+}) => {
     return (
         <form>
             <div>
-                name: <input onChange={inputController} />
+                <p>
+                    name: <input onChange={nameInputController} required />
+                </p>
+                <p>
+                    number: <input onChange={numberInputController} />
+                </p>
             </div>
             <div>
                 <button onClick={handleNameSubmit} type="submit">
