@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "./components/Form";
 import Numbers from "./components/Numbers";
 import Search from "./components/Search";
+import axios from "axios";
 
 const App = () => {
-    const [persons, setPersons] = useState([
-        { name: "Arto Hellas", number: "040-1234567" },
-        { name: "Vini Hellas", number: "45467" },
-        { name: "Estela Aurora", number: "044544567" },
-        { name: "Arthur Hellas", number: "0403734567" },
-        { name: "Bio Hel", number: "888888888567" },
-        { name: "asda Hellas", number: "999999999" },
-        { name: "qqqqqq Hellas", number: "11111111111" },
-    ]);
+    const [persons, setPersons] = useState([]);
     const [newName, setNewName] = useState("");
     const [newNumber, setNewNumber] = useState("");
     const [filteredInput, setFilteredInput] = useState("");
     const [filtered, setFiltered] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3001/persons").then((response) => {
+            setPersons(response.data);
+        });
+    }, []);
 
     const nameInputController = (event) => {
         setNewName({ name: event.target.value });
