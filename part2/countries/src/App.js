@@ -24,6 +24,7 @@ function App() {
         <Filter
             filteredCountries={filteredCountries}
             filterController={filterController}
+            setFilteredCountries={setFilteredCountries}
         />
     );
 }

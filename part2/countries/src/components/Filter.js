@@ -1,49 +1,22 @@
 import React from "react";
+import Results from "./Results";
 
-const Filter = ({ filteredCountries, filterController }) => {
+const Filter = ({
+    filteredCountries,
+    filterController,
+    setFilteredCountries,
+}) => {
     return (
         <div>
             <p>
                 find countries <input onChange={filterController} />
             </p>
-            {/* <p>{filteredCountries[0].name}</p> */}
-            <Results filteredCountries={filteredCountries} />
+            <Results
+                filteredCountries={filteredCountries}
+                setFilteredCountries={setFilteredCountries}
+            />
         </div>
     );
-};
-
-const Results = ({ filteredCountries }) => {
-    if (filteredCountries.length === 0) {
-        return "";
-    }
-
-    if (filteredCountries.length > 10) {
-        return <p>Too many matches, specify another filter</p>;
-    }
-
-    if (filteredCountries.length === 1) {
-        return (
-            <>
-                <h1>{filteredCountries[0].name}</h1>
-                <p>{filteredCountries[0].capital}</p>
-                <p>{filteredCountries[0].population}</p>
-
-                <h2>languages</h2>
-                <ul>
-                    {filteredCountries[0].languages.map((language) => {
-                        return <li>{language.name}</li>;
-                    })}
-                </ul>
-                <img
-                    src={filteredCountries[0].flag}
-                    alt={`${filteredCountries[0].name} flag`}
-                />
-            </>
-        );
-    }
-    return filteredCountries.map((country) => {
-        return <h3>{country.name}</h3>;
-    });
 };
 
 export default Filter;
