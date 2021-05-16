@@ -5,6 +5,8 @@ const Filter = ({
     filteredCountries,
     filterController,
     setFilteredCountries,
+    weather,
+    setWeather,
 }) => {
     return (
         <div>
@@ -14,6 +16,8 @@ const Filter = ({
             <Results
                 filteredCountries={filteredCountries}
                 setFilteredCountries={setFilteredCountries}
+                weather={weather}
+                setWeather={setWeather}
             />
         </div>
     );

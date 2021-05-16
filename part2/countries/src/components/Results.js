@@ -1,7 +1,13 @@
 import React from "react";
 import CountryInfo from "./CountryInfo";
+import Weather from "./Weather";
 
-const Results = ({ filteredCountries, setFilteredCountries }) => {
+const Results = ({
+    filteredCountries,
+    setFilteredCountries,
+    weather,
+    setWeather,
+}) => {
     if (filteredCountries.length === 0) {
         return "";
     }
@@ -11,7 +17,16 @@ const Results = ({ filteredCountries, setFilteredCountries }) => {
     }
 
     if (filteredCountries.length === 1) {
-        return <CountryInfo filteredCountries={filteredCountries} />;
+        return (
+            <>
+                <CountryInfo filteredCountries={filteredCountries} />
+                <Weather
+                    filteredCountries={filteredCountries}
+                    weather={weather}
+                    setWeather={setWeather}
+                />
+            </>
+        );
     }
     return filteredCountries.map((country) => {
         return (

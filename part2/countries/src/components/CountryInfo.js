@@ -8,13 +8,17 @@ const CountryInfo = ({ filteredCountries }) => {
             <p>{chosenCountry.capital}</p>
             <p>{chosenCountry.population}</p>
 
-            <h2>languages</h2>
+            <h2>Spoken languages</h2>
             <ul>
                 {chosenCountry.languages.map((language) => {
                     return <li key={language.name}>{language.name}</li>;
                 })}
             </ul>
-            <img src={chosenCountry.flag} alt={`${chosenCountry.name} flag`} />
+            <img
+                src={chosenCountry.flag}
+                alt={`${chosenCountry.name} flag`}
+                width={"200px"}
+            />
         </>
     );
 };
