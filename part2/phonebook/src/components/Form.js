@@ -1,7 +1,7 @@
 import React from "react";
 
 const Forms = ({
-    handleNameSubmit,
+    handleSubmit,
     nameInputController,
     numberInputController,
 }) => {
@@ -17,7 +17,7 @@ const Forms = ({
                 </p>
             </div>
             <div>
-                <button onClick={handleNameSubmit} type="submit">
+                <button onClick={handleSubmit} type="submit">
                     add
                 </button>
             </div>

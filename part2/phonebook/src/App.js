@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Form from "./components/Form";
 import Numbers from "./components/Numbers";
 import Search from "./components/Search";
-import axios from "axios";
+import personService from "./services/persons";
 
 const App = () => {
     const [persons, setPersons] = useState([]);
@@ -12,8 +12,8 @@ const App = () => {
     const [filtered, setFiltered] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3001/persons").then((response) => {
-            setPersons(response.data);
+        personService.getAll().then((initialPersons) => {
+            setPersons(initialPersons);
         });
     }, []);
 
@@ -37,7 +37,7 @@ const App = () => {
         setFiltered(filteredPersons);
     };
 
-    const handleNameSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         for (let i = 0; i < persons.length; i++) {
             if (persons[i].name === newName.name) {
@@ -46,10 +46,9 @@ const App = () => {
             }
         }
         const newPerson = { ...newName, ...newNumber };
-        setPersons(persons.concat([newPerson]));
-
-        const url = "http://localhost:3001/persons";
-        axios.post(url, newPerson);
+        personService
+            .createPerson(newPerson)
+            .then((createdUser) => setPersons(persons.concat([createdUser])));
     };
 
     return (
@@ -57,7 +56,7 @@ const App = () => {
             <h2>Phonebook</h2>
             <Search persons={persons} filterController={filterController} />
             <Form
-                handleNameSubmit={handleNameSubmit}
+                handleSubmit={handleSubmit}
                 nameInputController={nameInputController}
                 numberInputController={numberInputController}
             />
