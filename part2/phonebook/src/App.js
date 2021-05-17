@@ -51,6 +51,19 @@ const App = () => {
             .then((createdUser) => setPersons(persons.concat([createdUser])));
     };
 
+    const handleDelete = (personToBeDeleted) => {
+        if (
+            window.confirm(
+                `Are you sure you want to delete ${personToBeDeleted.name}'s contact?`
+            )
+        ) {
+            personService.deletePerson(personToBeDeleted);
+            setPersons(
+                persons.filter((eachPerson) => eachPerson !== personToBeDeleted)
+            );
+        }
+    };
+
     return (
         <div>
             <h2>Phonebook</h2>
@@ -64,6 +77,7 @@ const App = () => {
                 persons={persons}
                 filtered={filtered}
                 filteredInput={filteredInput}
+                handleDelete={handleDelete}
             />
         </div>
     );

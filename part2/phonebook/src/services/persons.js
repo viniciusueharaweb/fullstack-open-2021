@@ -8,11 +8,15 @@ const getAll = () => {
 };
 
 const createPerson = (newPerson) => {
-    console.log("working");
     const request = axios.post(url, newPerson);
     return request.then((response) => response.data);
 };
 
-const personService = { getAll, createPerson };
+const deletePerson = (person) => {
+    console.log(url + "/" + person.id);
+    return axios.delete(url + "/" + person.id, person);
+};
+
+const personService = { getAll, createPerson, deletePerson };
 
 export default personService;
