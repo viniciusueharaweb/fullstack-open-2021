@@ -13,10 +13,14 @@ const createPerson = (newPerson) => {
 };
 
 const deletePerson = (person) => {
-    console.log(url + "/" + person.id);
     return axios.delete(url + "/" + person.id, person);
 };
 
-const personService = { getAll, createPerson, deletePerson };
+const updatePerson = (person) => {
+    const request = axios.put(url + "/" + person.id, person);
+    return request.then((response) => response.data);
+};
+
+const personService = { getAll, createPerson, deletePerson, updatePerson };
 
 export default personService;
