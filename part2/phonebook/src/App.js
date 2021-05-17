@@ -47,6 +47,9 @@ const App = () => {
         }
         const newPerson = { ...newName, ...newNumber };
         setPersons(persons.concat([newPerson]));
+
+        const url = "http://localhost:3001/persons";
+        axios.post(url, newPerson);
     };
 
     return (
