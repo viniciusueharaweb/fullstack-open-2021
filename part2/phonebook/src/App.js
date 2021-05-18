@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Form from "./components/Form";
 import Numbers from "./components/Numbers";
 import Search from "./components/Search";
+import Notification from "./components/Notification";
 import personService from "./services/persons";
 
 const App = () => {
@@ -10,6 +11,8 @@ const App = () => {
     const [newNumber, setNewNumber] = useState("");
     const [filteredInput, setFilteredInput] = useState("");
     const [filtered, setFiltered] = useState([]);
+    const [successMessage, setSuccessMessage] = useState("");
+    const [failMessage, setFailMessage] = useState("");
 
     useEffect(() => {
         //set initial persons from json-server db.json (backend)
@@ -58,25 +61,39 @@ const App = () => {
                             ...persons[i],
                             number: newNumber.number,
                         })
-                        .then((response) =>
+                        .then((response) => {
+                            //change state after resolving promise
                             setPersons(
                                 persons.map((eachPerson) => {
-                                    if (eachPerson.name === persons[i].name) {
+                                    if (eachPerson.name === response.name) {
                                         eachPerson.number = newNumber.number;
                                     }
                                     return eachPerson;
                                 })
-                            )
-                        );
+                            );
+                            setSuccessMessage(
+                                `Changed ${newName.name}'s number`
+                            );
+                            removeNotification();
+                        })
+                        .catch((err) => {
+                            //error handling
+                            setFailMessage(
+                                `Information of ${newName.name} has already been removed from the server.`
+                            );
+                            removeNotification();
+                        });
                 }
                 return;
             }
         }
-        //logic to add a new person
+        //logic to add a new person: only happens if it is a new person name
         const newPerson = { ...newName, ...newNumber };
         personService
             .createPerson(newPerson)
             .then((createdUser) => setPersons(persons.concat([createdUser])));
+        setSuccessMessage(`Added ${newName.name}`);
+        removeNotification();
     };
 
     const handleDelete = (personToBeDeleted) => {
@@ -90,12 +107,26 @@ const App = () => {
             setPersons(
                 persons.filter((eachPerson) => eachPerson !== personToBeDeleted)
             );
+            setSuccessMessage(`Deleted ${personToBeDeleted.name}`);
+            removeNotification();
         }
+    };
+
+    const removeNotification = () => {
+        //settimeout function to keep the code dry
+        return setTimeout(() => {
+            setSuccessMessage(null);
+            setFailMessage(null);
+        }, 3000);
     };
 
     return (
         <div>
             <h2>Phonebook</h2>
+            <Notification
+                successMessage={successMessage}
+                failMessage={failMessage}
+            />
             <Search persons={persons} filterController={filterController} />
             <Form
                 handleSubmit={handleSubmit}
