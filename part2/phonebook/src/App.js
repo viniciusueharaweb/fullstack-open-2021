@@ -23,12 +23,12 @@ const App = () => {
 
     const nameInputController = (event) => {
         //name controlled input
-        setNewName({ name: event.target.value });
+        setNewName(event.target.value);
     };
 
     const numberInputController = (event) => {
         // number controlled input
-        setNewNumber({ number: event.target.value });
+        setNewNumber(event.target.value);
     };
 
     const filterController = (event) => {
@@ -49,37 +49,36 @@ const App = () => {
         event.preventDefault();
         for (let i = 0; i < persons.length; i++) {
             //logic to the case when the user tries to add a person that already is in the phonebook
-            if (persons[i].name === newName.name) {
+            if (persons[i].name === newName) {
                 if (
                     window.confirm(
-                        `${newName.name} is already added to the phonebook. Do you want to replace the old number with this new one?`
+                        `${newName} is already added to the phonebook. Do you want to replace the old number with this new one?`
                     )
                 ) {
                     //send put request and then change state
                     personService
                         .updatePerson({
                             ...persons[i],
-                            number: newNumber.number,
+                            number: newNumber,
                         })
                         .then((response) => {
                             //change state after resolving promise
                             setPersons(
                                 persons.map((eachPerson) => {
-                                    if (eachPerson.name === response.name) {
-                                        eachPerson.number = newNumber.number;
-                                    }
-                                    return eachPerson;
+                                    return eachPerson.id !== persons[i].id
+                                        ? eachPerson
+                                        : response;
                                 })
                             );
-                            setSuccessMessage(
-                                `Changed ${newName.name}'s number`
-                            );
+                            setSuccessMessage(`Changed ${newName}'s number`);
                             removeNotification();
+                            setNewName("");
+                            setNewNumber("");
                         })
                         .catch((err) => {
                             //error handling
                             setFailMessage(
-                                `Information of ${newName.name} has already been removed from the server.`
+                                `Information of ${newName} has already been removed from the server.`
                             );
                             removeNotification();
                         });
@@ -88,12 +87,14 @@ const App = () => {
             }
         }
         //logic to add a new person: only happens if it is a new person name
-        const newPerson = { ...newName, ...newNumber };
+        const newPerson = { name: newName, number: newNumber };
         personService
             .createPerson(newPerson)
             .then((createdUser) => setPersons(persons.concat([createdUser])));
-        setSuccessMessage(`Added ${newName.name}`);
+        setSuccessMessage(`Added ${newName}`);
         removeNotification();
+        setNewName("");
+        setNewNumber("");
     };
 
     const handleDelete = (personToBeDeleted) => {
@@ -127,11 +128,13 @@ const App = () => {
                 successMessage={successMessage}
                 failMessage={failMessage}
             />
-            <Search persons={persons} filterController={filterController} />
+            <Search filterController={filterController} />
             <Form
                 handleSubmit={handleSubmit}
                 nameInputController={nameInputController}
                 numberInputController={numberInputController}
+                newName={newName}
+                newNumber={newNumber}
             />
             <Numbers
                 persons={persons}

@@ -4,16 +4,20 @@ const Forms = ({
     handleSubmit,
     nameInputController,
     numberInputController,
+    newName,
+    newNumber,
 }) => {
     return (
         <form>
             <div>
                 <h2>add a new</h2>
                 <p>
-                    name: <input onChange={nameInputController} />
+                    name:
+                    <input value={newName} onChange={nameInputController} />
                 </p>
                 <p>
-                    number: <input onChange={numberInputController} />
+                    number:
+                    <input value={newNumber} onChange={numberInputController} />
                 </p>
             </div>
             <div>
