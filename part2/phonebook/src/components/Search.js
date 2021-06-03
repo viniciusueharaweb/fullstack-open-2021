@@ -1,6 +1,6 @@
 import React from "react";
 
-const Search = ({ persons, filterController }) => {
+const Search = ({ filterController }) => {
     return (
         <div>
             <p>
